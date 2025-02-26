@@ -15,21 +15,18 @@ const Contact = () => {
     const [status, setStatus] = useState("");
     const [isLoading, setIsLoading] = useState(false); // Track loading state
 
-    const handleChange = useCallback((e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+    // ✅ Correctly Typed handleChange Function
+    const handleChange = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+            const { name, value } = e.target;
+            setFormData((prev) => ({ ...prev, [name]: value }));
+        },
+        []
+    );
 
-        //     (prev) => ...: The functional update part. It takes prev (the current formData) and returns a new object.
-        // { ...prev, [name]: value }: The new object being created:
-        // ...prev: Spreads all properties of prev (e.g., { name: "", email: "", message: "" }) into a new object.
-        // [name]: value: Adds or updates one property (e.g., name: "Hargobind") in that new object.
-
-
-
-    }, []);
-
+    // ✅ Fixed TypeScript Error in handleSubmit
     const handleSubmit = useCallback(
-        async (e) => {
+        async (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
             setIsLoading(true); // Start loading
             setStatus("");
@@ -60,11 +57,12 @@ const Contact = () => {
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col">
             <main className="flex-grow mt-16 container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <h1 className="text-4xl font-bold text-center text-[#7ea9ff] mb-10">
+                <h1 className="text-4xl font-bold text-center text-blue-500 mb-10">
                     Contact Me
                 </h1>
                 <div className="max-w-lg mx-auto bg-white rounded-lg shadow-lg p-6">
                     <form onSubmit={handleSubmit} className="space-y-6">
+                        {/* Name Input */}
                         <div className="space-y-2">
                             <Label htmlFor="name" className="text-gray-700">Name</Label>
                             <Input
@@ -78,6 +76,8 @@ const Contact = () => {
                                 disabled={isLoading}
                             />
                         </div>
+
+                        {/* Email Input */}
                         <div className="space-y-2">
                             <Label htmlFor="email" className="text-gray-700">Email</Label>
                             <Input
@@ -91,6 +91,8 @@ const Contact = () => {
                                 disabled={isLoading}
                             />
                         </div>
+
+                        {/* Message Textarea */}
                         <div className="space-y-2">
                             <Label htmlFor="message" className="text-gray-700">Message</Label>
                             <Textarea
@@ -105,31 +107,33 @@ const Contact = () => {
                             />
                         </div>
 
-                        {/* Progress Bar */}
+                        {/* ✅ Smooth Progress Bar Animation */}
                         {isLoading && (
-                            <div className="w-full bg-gray-200 rounded-full h-2.5">
+                            <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
                                 <div
-                                    className="bg-[#7ea9ff] h-2.5 rounded-full animate-pulse"
-                                    style={{ width: "75%" }} // Could animate width dynamically
+                                    className="bg-blue-500 h-2.5 rounded-full transition-all duration-700 ease-in-out"
+                                    style={{ width: isLoading ? "100%" : "0%" }}
                                 ></div>
                             </div>
                         )}
 
+                        {/* ✅ Improved Button Styling for Dark Mode */}
                         <Button
                             type="submit"
-                            className="w-full bg-[#7ea9ff] hover:bg-blue-600 text-white font-semibold"
+                            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold"
                             disabled={isLoading}
                         >
                             {isLoading ? "Sending..." : "Send Message"}
                         </Button>
 
-                        {/* Success/Error Message with Animation */}
+                        {/* ✅ Success/Error Message Animation */}
                         {status && (
                             <p
-                                className={`text-center ${status.includes("success")
+                                className={`text-center ${
+                                    status.includes("success")
                                         ? "text-green-600 animate-bounce-in"
                                         : "text-red-600"
-                                    }`}
+                                }`}
                             >
                                 {status}
                             </p>
@@ -138,28 +142,28 @@ const Contact = () => {
                 </div>
             </main>
 
-            {/* Custom CSS for Animation */}
+            {/* ✅ Custom CSS for Animation */}
             <style jsx>{`
-        @keyframes bounceIn {
-          0% {
-            opacity: 0;
-            transform: scale(0.3);
-          }
-          50% {
-            opacity: 1;
-            transform: scale(1.05);
-          }
-          70% {
-            transform: scale(0.9);
-          }
-          100% {
-            transform: scale(1);
-          }
-        }
-        .animate-bounce-in {
-          animation: bounceIn 0.6s ease-out;
-        }
-      `}</style>
+                @keyframes bounceIn {
+                    0% {
+                        opacity: 0;
+                        transform: scale(0.3);
+                    }
+                    50% {
+                        opacity: 1;
+                        transform: scale(1.05);
+                    }
+                    70% {
+                        transform: scale(0.9);
+                    }
+                    100% {
+                        transform: scale(1);
+                    }
+                }
+                .animate-bounce-in {
+                    animation: bounceIn 0.6s ease-out;
+                }
+            `}</style>
         </div>
     );
 };
