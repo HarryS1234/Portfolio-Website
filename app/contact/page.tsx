@@ -48,6 +48,7 @@ const Contact = () => {
                     setStatus("Failed to send message.");
                 }
             } catch (error) {
+                console.error(error);
                 setStatus("An error occurred. Please try again.");
             } finally {
                 setIsLoading(false); // Stop loading

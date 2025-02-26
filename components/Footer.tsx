@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import React from "react";
-import { FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa"; // Example social icons
+import { FaGithub,FaLinkedin } from "react-icons/fa"; // Example social icons
 
 const Footer = () => {
   const footerItems = [

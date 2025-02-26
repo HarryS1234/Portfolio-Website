@@ -1,3 +1,4 @@
+import { log } from "console";
 import { NextResponse } from "next/server";
 
 // In-memory storage (replace with database in production)
@@ -35,6 +36,7 @@ export async function DELETE(request) {
     posts = posts.filter((post) => post.id !== Number(id));
     return NextResponse.json({ message: "Post deleted" }, { status: 200 });
   } catch (error) {
+    console.error(error);
     return NextResponse.json({ error: "Failed to delete post" }, { status: 500 });
   }
 }
