@@ -2,22 +2,37 @@
 
 import React, { useState, useEffect } from "react";
 
+interface BlogPost {
+    id: string;
+    title: string;
+    excerpt: string;
+    content: string;
+    date: string;
+}
+
 const Blog = () => {
-    const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState<BlogPost[]>([]);
     const [sortByLatest, setSortByLatest] = useState(true);
     const [showForm, setShowForm] = useState(false);
-    const [newPost, setNewPost] = useState({ title: "", excerpt: "", content: "" });
+    const [newPost, setNewPost] = useState<BlogPost>({
+        id: "",
+        title: "",
+        excerpt: "",
+        content: "",
+        date: new Date().toISOString(),
+    });
 
     // Fetch posts on mount
     useEffect(() => {
         fetch("/api/blog")
             .then((res) => res.json())
-            .then((data) => setPosts(data))
+            .then((data: BlogPost[]) => setPosts(data))
             .catch((err) => console.error("Failed to fetch posts:", err));
     }, []);
 
-    const formatDate = (dateString) => {
+    const formatDate = (dateString: string) => {
         const date = new Date(dateString);
+        if (isNaN(date.getTime())) return "Invalid date";
         const day = String(date.getDate()).padStart(2, "0");
         const month = String(date.getMonth() + 1).padStart(2, "0");
         const year = date.getFullYear();
@@ -25,21 +40,21 @@ const Blog = () => {
     };
 
     const handleSort = () => {
-        const sortedPosts = [...posts].sort((a, b) =>
-            sortByLatest
-                ? new Date(b.date) - new Date(a.date)
-                : new Date(a.date) - new Date(b.date)
-        );
+        const sortedPosts = [...posts].sort((a, b) => {
+            const dateA = new Date(a.date).getTime();
+            const dateB = new Date(b.date).getTime();
+            return sortByLatest ? dateB - dateA : dateA - dateB;
+        });
         setPosts(sortedPosts);
         setSortByLatest(!sortByLatest);
     };
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setNewPost((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleAddPost = async (e) => {
+    const handleAddPost = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             const response = await fetch("/api/blog", {
@@ -50,7 +65,7 @@ const Blog = () => {
             if (response.ok) {
                 const addedPost = await response.json();
                 setPosts((prev) => [...prev, addedPost]);
-                setNewPost({ title: "", excerpt: "", content: "" });
+                setNewPost({ id: "", title: "", excerpt: "", content: "", date: new Date().toISOString() });
                 setShowForm(false);
             }
         } catch (error) {
@@ -58,7 +73,7 @@ const Blog = () => {
         }
     };
 
-    const handleDeletePost = async (id) => {
+    const handleDeletePost = async (id: string) => {
         try {
             const response = await fetch("/api/blog", {
                 method: "DELETE",
