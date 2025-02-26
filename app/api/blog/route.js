@@ -1,4 +1,4 @@
-import { log } from "console";
+
 import { NextResponse } from "next/server";
 
 // In-memory storage (replace with database in production)
@@ -26,6 +26,7 @@ export async function POST(request) {
     posts.push(newPost);
     return NextResponse.json(newPost, { status: 201 });
   } catch (error) {
+    console.error(error);
     return NextResponse.json({ error: "Failed to create post" }, { status: 500 });
   }
 }
