@@ -13,7 +13,13 @@ import OnThisPage from "@/components/ui/onthispage";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 
-export default async function Page({ params }) {
+interface PageProps {
+  params: {
+    slug: string;
+  };
+}
+
+export default async function Page({ params }: PageProps) {
   const filepath = `content/${params.slug}.md`;
 
   if (!fs.existsSync(filepath)) {
@@ -52,8 +58,8 @@ export default async function Page({ params }) {
           {data.title}
         </h1>
         <blockquote className="text-base mb-6 border-l-4 border-[#3182ce] pl-4 italic text-[#666666] dark:text-[#a0aec0] bg-[#ffffff] dark:bg-[#2d3748] py-2 rounded-r-lg">
-  &quot;{data.description}&quot;
-</blockquote>
+          &quot;{data.description}&quot;
+        </blockquote>
         <div className="flex flex-col sm:flex-row gap-4 text-sm text-[#666666] dark:text-[#a0aec0]">
           <span className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 bg-[#3182ce] rounded-full"></span>
