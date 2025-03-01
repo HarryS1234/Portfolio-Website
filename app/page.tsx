@@ -67,7 +67,7 @@ const Page = () => {
       </div>
 
       {/* Content Wrapper */}
-      <main className="relative z-10 flex flex-col md:flex-row items-center justify-between w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+      <main className="relative z-10 flex  mt-12 flex-col md:flex-row items-center justify-between w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         {/* Left Side: Text Content */}
         <div className="md:w-1/2 text-center md:text-left animate-fade-in-up">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#333333] dark:text-[#e2e8f0] mb-4">
