@@ -26,43 +26,81 @@ const Projects = () => {
   ];
 
   return (
-    <div className="min-h-screen  bg-gray-100 flex flex-col">
+    <div className="min-h-screen bg-[#f0f4f8] dark:bg-[#1a202c] flex flex-col transition-colors duration-300">
       {/* Main Content */}
-      <main className="flex-grow  mt-16 container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-4xl font-bold text-center text-[#7ea9ff] mb-10">
-          My Projects
-        </h1>
+      <main className="flex-grow mt-16 container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        {/* Header */}
+        <header className="mb-12 text-center">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-[#333333] dark:text-[#e2e8f0] tracking-tight mb-4">
+            My Projects
+          </h1>
+          <p className="text-lg text-[#666666] dark:text-[#a0aec0] max-w-2xl mx-auto">
+            A showcase of my recent work and technical explorations
+          </p>
+        </header>
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <div
+            <article
               key={index}
-              className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+              className="group bg-[#ffffff] dark:bg-[#2d3748] rounded-xl shadow-md hover:shadow-xl border border-[#cccccc] dark:border-[#4a5568] transition-all duration-300 overflow-hidden"
             >
-              <h2 className="text-2xl font-semibold text-[#7ea9ff] hover:text-3xl mb-2">
-                {project.title}
-              </h2>
-              <p className="text-gray-700 mb-4 hover:font-semibold">{project.description}</p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {project.tech.map((tech, i) => (
-                  <span
-                    key={i}
-                    className="bg-[#7ea9ff] text-white text-sm font-medium px-2 py-1 rounded"
+              <div className="p-6">
+                {/* Title */}
+                <h2 className="text-xl md:text-2xl font-bold text-[#333333] dark:text-[#e2e8f0] mb-3 group-hover:text-[#3182ce] dark:group-hover:text-[#63b3ed] transition-colors line-clamp-1">
+                  {project.title}
+                </h2>
+
+                {/* Description */}
+                <p className="text-[#666666] dark:text-[#a0aec0] mb-4 text-sm md:text-base line-clamp-3">
+                  {project.description}
+                </p>
+
+                {/* Tech Stack */}
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {project.tech.map((tech, i) => (
+                    <span
+                      key={i}
+                      className="bg-[#3182ce] dark:bg-[#63b3ed] text-[#ffffff] text-xs font-medium px-2.5 py-1 rounded-full transition-colors"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Developer Notes (Expandable) */}
+                <details className="mb-4 text-sm text-[#666666] dark:text-[#a0aec0]">
+                  <summary className="cursor-pointer font-medium text-[#3182ce] dark:text-[#63b3ed] hover:underline">
+                    Developer Notes
+                  </summary>
+                  <p className="mt-2 pr-2">{project.developerNotes}</p>
+                </details>
+
+                {/* Link */}
+                <Link
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-[#3182ce] dark:text-[#63b3ed] font-semibold hover:text-[#63b3ed] dark:hover:text-[#3182ce] transition-colors"
+                >
+                  View Project
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                   >
-                    {tech}
-                  </span>
-                ))}
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </Link>
               </div>
-              <Link
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#7ea9ff] font-semibold hover:underline"
-              >
-                View Project →
-              </Link>
-            </div>
+            </article>
           ))}
         </div>
       </main>

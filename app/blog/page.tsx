@@ -1,193 +1,99 @@
-"use client";
+import React from 'react';
+import { buttonVariants } from '@/components/ui/button';
+import Link from 'next/link';
+import fs from "fs";
+import matter from 'gray-matter';
 
-import React, { useState, useEffect } from "react";
+const dirContent = fs.readdirSync("content", "utf-8");
 
-interface BlogPost {
-    id: string;
-    title: string;
-    excerpt: string;
-    content: string;
-    date: string;
-}
-
+// Filter out resume.md and only include blog posts
+const blogs = dirContent
+  .filter(file => file !== "resume.md" && file.endsWith(".md")) // Exclude resume.md and ensure .md files only
+  .map(file => {
+    const fileContent = fs.readFileSync(`content/${file}`, "utf-8");
+    const { data } = matter(fileContent);
+    return data;
+  });
+/**
+ * Blog component that renders a list of blog posts with enhanced styling.
+ * Features a responsive grid layout with card-based blog previews.
+ * 
+ * @returns {JSX.Element} The rendered blog component
+ */
 const Blog = () => {
-    const [posts, setPosts] = useState<BlogPost[]>([]);
-    const [sortByLatest, setSortByLatest] = useState(true);
-    const [showForm, setShowForm] = useState(false);
-    const [newPost, setNewPost] = useState<BlogPost>({
-        id: "",
-        title: "",
-        excerpt: "",
-        content: "",
-        date: new Date().toISOString(),
-    });
+  return (
+    <div className="container max-w-7xl mx-auto px-4 py-12 md:py-16">
+      {/* Header Section */}
+      <header className="mb-12 text-center">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-[#333333] dark:text-[#e2e8f0] tracking-tight">
+          Blog
+        </h1>
+        <p className="mt-2 text-lg text-[#666666] dark:text-[#a0aec0]">
+          Explore my latest insights and stories
+        </p>
+      </header>
 
-    // Fetch posts on mount
-    useEffect(() => {
-        fetch("/api/blog")
-            .then((res) => res.json())
-            .then((data: BlogPost[]) => setPosts(data))
-            .catch((err) => console.error("Failed to fetch posts:", err));
-    }, []);
+      {/* Blog Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {blogs.map((blog, index) => (
+          <article 
+            key={index} 
+            className="group bg-[#ffffff] dark:bg-[#2d3748] rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-[#cccccc] dark:border-[#4a5568]"
+          >
+            {/* Image Container */}
+            <div className="relative overflow-hidden">
+              <img 
+                src={blog.image} 
+                alt={blog.title} 
+                className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+            </div>
 
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        if (isNaN(date.getTime())) return "Invalid date";
-        const day = String(date.getDate()).padStart(2, "0");
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const year = date.getFullYear();
-        return `${day}/${month}/${year}`;
-    };
+            {/* Content Container */}
+            <div className="p-6">
+              {/* Title */}
+              <h2 className="text-xl md:text-2xl font-bold text-[#333333] dark:text-[#e2e8f0] mb-3 line-clamp-2 group-hover:text-[#3182ce] dark:group-hover:text-[#63b3ed] transition-colors">
+                {blog.title}
+              </h2>
 
-    const handleSort = () => {
-        const sortedPosts = [...posts].sort((a, b) => {
-            const dateA = new Date(a.date).getTime();
-            const dateB = new Date(b.date).getTime();
-            return sortByLatest ? dateB - dateA : dateA - dateB;
-        });
-        setPosts(sortedPosts);
-        setSortByLatest(!sortByLatest);
-    };
+              {/* Description */}
+              <p className="text-[#666666] dark:text-[#a0aec0] mb-4 line-clamp-3 text-sm md:text-base">
+                {blog.description}
+              </p>
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setNewPost((prev) => ({ ...prev, [name]: value }));
-    };
+              {/* Metadata */}
+              <div className="flex items-center gap-4 text-sm text-[#666666] dark:text-[#a0aec0] mb-6">
+                <span className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-[#3182ce] rounded-full"></span>
+                  {blog.author}
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-[#3182ce] rounded-full"></span>
+                  {new Date(blog.date).toLocaleDateString('en-GB', { 
+                    day: '2-digit', 
+                    month: 'long', 
+                    year: 'numeric' 
+                  })}
+                </span>
+              </div>
 
-    const handleAddPost = async (e: React.FormEvent) => {
-        e.preventDefault();
-        try {
-            const response = await fetch("/api/blog", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newPost),
-            });
-            if (response.ok) {
-                const addedPost = await response.json();
-                setPosts((prev) => [...prev, addedPost]);
-                setNewPost({ id: "", title: "", excerpt: "", content: "", date: new Date().toISOString() });
-                setShowForm(false);
-            }
-        } catch (error) {
-            console.error("Failed to add post:", error);
-        }
-    };
-
-    const handleDeletePost = async (id: string) => {
-        try {
-            const response = await fetch("/api/blog", {
-                method: "DELETE",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id }),
-            });
-            if (response.ok) {
-                setPosts((prev) => prev.filter((post) => post.id !== id));
-            }
-        } catch (error) {
-            console.error("Failed to delete post:", error);
-        }
-    };
-
-    return (
-        <div className="min-h-screen bg-gray-100 flex flex-col">
-            <main className="flex-grow mt-16 container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="flex justify-between items-center mb-10">
-                    <h1 className="text-4xl font-bold text-[#7ea9ff]">My Blog</h1>
-                    <div className="space-x-4">
-                        <button
-                            onClick={handleSort}
-                            className="bg-[#7ea9ff] text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
-                        >
-                            {sortByLatest ? "Show Oldest First" : "Show Latest First"}
-                        </button>
-                        <button
-                            onClick={() => setShowForm(!showForm)}
-                            className="bg-[#7ea9ff] text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
-                        >
-                            {showForm ? "Cancel" : "+"}
-                        </button>
-                    </div>
-                </div>
-
-                {showForm && (
-                    <div className="mb-10 bg-white rounded-lg shadow-lg p-6">
-                        <h2 className="text-2xl font-semibold text-[#7ea9ff] mb-4">
-                            Create New Blog Post
-                        </h2>
-                        <form onSubmit={handleAddPost} className="space-y-4">
-                            <div>
-                                <label htmlFor="title" className="block text-gray-700">Title</label>
-                                <input
-                                    id="title"
-                                    name="title"
-                                    type="text"
-                                    value={newPost.title}
-                                    onChange={handleInputChange}
-                                    placeholder="Enter blog title"
-                                    className="w-full p-2 border rounded"
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <label htmlFor="excerpt" className="block text-gray-700">Excerpt</label>
-                                <input
-                                    id="excerpt"
-                                    name="excerpt"
-                                    type="text"
-                                    value={newPost.excerpt}
-                                    onChange={handleInputChange}
-                                    placeholder="Short summary"
-                                    className="w-full p-2 border rounded"
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <label htmlFor="content" className="block text-gray-700">Content</label>
-                                <textarea
-                                    id="content"
-                                    name="content"
-                                    value={newPost.content}
-                                    onChange={handleInputChange}
-                                    placeholder="Write your blog post here"
-                                    className="w-full p-2 border rounded h-32"
-                                    required
-                                />
-                            </div>
-                            <button
-                                type="submit"
-                                className="w-full bg-[#7ea9ff] text-white p-2 rounded hover:bg-blue-600 transition-colors"
-                            >
-                                Add Post
-                            </button>
-                        </form>
-                    </div>
-                )}
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {posts.map((post) => (
-                        <div
-                            key={post.id}
-                            className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
-                        >
-                            <h2 className="text-2xl font-semibold text-[#7ea9ff] mb-2">
-                                {post.title}
-                            </h2>
-                            <p className="text-gray-600 mb-4">{post.excerpt}</p>
-                            <p className="text-sm text-gray-500 mb-4">
-                                Posted on: {formatDate(post.date)}
-                            </p>
-                            <button
-                                onClick={() => handleDeletePost(post.id)}
-                                className="text-red-600 font-semibold hover:underline"
-                            >
-                                Delete
-                            </button>
-                        </div>
-                    ))}
-                </div>
-            </main>
-        </div>
-    );
+              {/* Read More Button */}
+              <Link 
+                href={`/blogpost/${blog.slug}`} 
+                className={buttonVariants({ 
+                  variant: "outline",
+                  className: "w-full sm:w-auto bg-[#3182ce] text-[#ffffff] hover:bg-[#63b3ed] border-[#3182ce] hover:border-[#63b3ed] transition-colors"
+                })}
+              >
+                Read More
+              </Link>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Blog;

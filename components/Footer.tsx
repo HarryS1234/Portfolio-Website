@@ -18,14 +18,14 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-[#7ea9ff] text-white w-full py-8 mt-auto">
+    <footer className="bg-[#3182ce] dark:bg-gray-800  text-white w-full py-8 mt-auto">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
           {/* Footer Navigation */}
           <ul className="flex flex-col md:flex-row justify-center items-center gap-6">
             {footerItems.map((item) => (
               <Link key={item.path} href={item.path}>
-                <li className="font-semibold text-lg cursor-pointer hover:text-gray-200 transition-colors duration-200">
+                <li className="font-semibold text-lg cursor-pointer hover:text-gray-200  dark:hover:bg-gray-600 transition-colors duration-200">
                   {item.name}
                 </li>
               </Link>

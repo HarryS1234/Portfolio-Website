@@ -5,58 +5,87 @@ import Link from "next/link";
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-white text-gray-900 font-sans">
-      {/* Hero Section with Smooth Gradient Animation */}
-      <section className="relative mt-16 flex items-center justify-center bg-gradient-to-b from-[#7ea9ff]/10 to-white overflow-hidden">
+    <div className="min-h-screen bg-[#f0f4f8] dark:bg-[#1a202c] text-[#333333] dark:text-[#e2e8f0] font-sans transition-colors duration-300">
+      {/* Hero Section */}
+      <section className="relative mt-16 flex items-center justify-center bg-gradient-to-b from-[#3182ce]/10 to-[#f0f4f8] dark:from-[#63b3ed]/20 dark:to-[#1a202c] overflow-hidden py-16">
         {/* Animated Gradient Background */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#7ea9ff]/10 via-white to-[#7ea9ff]/10 animate-gradient-x"></div>
-        <div className="relative z-10 text-center p-6">
-          <h1 className="text-5xl md:text-6xl font-bold text-[#7ea9ff] hover:scale-105 transition-transform duration-500">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#3182ce]/10 via-[#f0f4f8] to-[#3182ce]/10 dark:from-[#63b3ed]/20 dark:via-[#1a202c] dark:to-[#63b3ed]/20 animate-gradient-x"></div>
+        <div className="relative z-10 text-center px-6">
+          <h1 className="text-5xl md:text-6xl font-extrabold text-[#3182ce] dark:text-[#63b3ed] group-hover:scale-105 transition-transform duration-300">
             About Me
           </h1>
-          <p className="mt-4 text-xl text-gray-700 max-w-2xl mx-auto">
-            Discover my journey as a web developer and AI enthusiast.
+          <p className="mt-4 text-xl text-[#666666] dark:text-[#a0aec0] max-w-2xl mx-auto">
+            A computer science student crafting innovative web solutions
           </p>
         </div>
       </section>
 
-      {/* Main Content with Smooth Animations */}
-      <main className="max-w-4xl mx-auto p-6 md:p-8 space-y-16">
+      {/* Main Content */}
+      <main className="max-w-4xl mx-auto px-6 md:px-8 py-12 md:py-16 space-y-16">
         {/* Personal Story */}
-        <section className="space-y-8  text-center animate-fade-in-up">
-          <h2 className="text-3xl  font-semibold text-[#7ea9ff] hover:scale-105 transition-transform duration-500">My Story</h2>
-          <p className="text-gray-700 leading-relaxed text-lg">
-            I started coding at 16, driven by a passion for creating intuitive digital experiences. Over the years, I’ve built websites for clients worldwide, specializing in Next.js, Tailwind CSS, and AI integrations. My mission is to blend technology with creativity to solve real-world problems.
+        <section className="space-y-6 text-center animate-fade-in-up">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#3182ce] dark:text-[#63b3ed] group-hover:scale-105 transition-transform duration-300">
+            My Journey
+          </h2>
+          <p className="text-[#666666] dark:text-[#a0aec0] leading-relaxed text-base md:text-lg">
+            I'm a Computer Science student with a burning passion for web development. Over the past year, I've been building websites that blend creativity with functionality, turning ideas into digital realities. From tinkering with code in my dorm room to delivering projects for real clients, I’m hooked on creating seamless online experiences that make an impact.
           </p>
         </section>
 
         {/* Skills and Values */}
-        <section className="space-y-8  text-center  animate-fade-in-up delay-200">
-          <h2 className="text-3xl  font-semibold text-[#7ea9ff] hover:scale-105 transition-transform duration-500">What I Bring</h2>
-          <ul className="list-disc list-inside text-gray-700 space-y-3 text-lg">
-            <li>Expertise in Next.js, React, and TypeScript</li>
-            <li>AI-driven solutions using free API integrations</li>
-            <li>Commitment to user-friendly, responsive designs</li>
-            <li>Passion for innovation and good vibes in tech</li>
+        <section className="space-y-6 text-center animate-fade-in-up delay-200">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#3182ce] dark:text-[#63b3ed] group-hover:scale-105 transition-transform duration-300">
+            What I Offer
+          </h2>
+          <ul className="list-none text-[#666666] dark:text-[#a0aec0] space-y-4 text-base md:text-lg">
+            <li className="flex items-center justify-center gap-2">
+              <span className="w-2 h-2 bg-[#3182ce] dark:bg-[#63b3ed] rounded-full"></span>
+              Cutting-edge skills in Next.js, React, and Tailwind CSS
+            </li>
+            <li className="flex items-center justify-center gap-2">
+              <span className="w-2 h-2 bg-[#3182ce] dark:bg-[#63b3ed] rounded-full"></span>
+              Backend proficiency with Python, Java, and Node.js
+            </li>
+            <li className="flex items-center justify-center gap-2">
+              <span className="w-2 h-2 bg-[#3182ce] dark:bg-[#63b3ed] rounded-full"></span>
+              Sleek, responsive designs that shine on any device
+            </li>
+            <li className="flex items-center justify-center gap-2">
+              <span className="w-2 h-2 bg-[#3182ce] dark:bg-[#63b3ed] rounded-full"></span>
+              A fresh perspective and relentless drive to innovate
+            </li>
           </ul>
         </section>
 
         {/* Call to Action */}
         <section className="text-center space-y-6 animate-fade-in-up delay-400">
-          <h2  className="text-3xl  font-semibold text-[#7ea9ff] hover:scale-105 transition-transform duration-500">Let’s Connect</h2>
-          <p className="text-gray-700 text-lg">
-            Ready to build something amazing? Contact me to discuss your project or explore my work further.
+          <h2 className="text-3xl md:text-4xl font-bold text-[#3182ce] dark:text-[#63b3ed] group-hover:scale-105 transition-transform duration-300">
+            Let’s Build Together
+          </h2>
+          <p className="text-[#666666] dark:text-[#a0aec0] text-base md:text-lg">
+            Got a project in mind? I’m ready to bring your vision to life with clean code and cool designs. Let’s chat about how I can help!
           </p>
           <Link
             href="/contact"
-            className="inline-block px-8 py-3 bg-[#7ea9ff] text-white rounded-full hover:bg-[#659bff] transition-colors duration-300 shadow-lg hover:shadow-xl"
+            className="inline-flex items-center gap-2 px-8 py-3 bg-[#3182ce] dark:bg-[#63b3ed] text-[#ffffff] rounded-full hover:bg-[#63b3ed] dark:hover:bg-[#3182ce] transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
           >
-            Get in Touch
+            Contact Me
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+              />
+            </svg>
           </Link>
         </section>
       </main>
-
-
     </div>
   );
 };

@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { ReactNode } from 'react';
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer'; // If you have a Footer
-import Chatbot from '../components/Chatbot'; // If you have a Footer
+import Footer from '../components/Footer';
+import Chatbot from '../components/Chatbot';
+import { ThemeProvider } from "@/components/theme-provider";
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -12,14 +13,19 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <Chatbot />
-
-
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+          <Chatbot />
+        </ThemeProvider>
       </body>
     </html>
   );
