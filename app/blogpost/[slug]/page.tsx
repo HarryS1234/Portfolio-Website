@@ -33,7 +33,9 @@ export default async function Page(props: { params: Promise<{ slug: string }> })
   try {
     fileContent = await fs.readFile(filepath, "utf-8");
   } catch (error) {
-    notFound();
+    console.log(error);
+    notFound()
+
   }
 
   const { content, data } = matter(fileContent) as GrayMatterFile<string> & {
