@@ -1,3 +1,4 @@
+// app/blogpost/[slug]/page.tsx
 import fs from "fs";
 import matter from "gray-matter";
 import { notFound } from "next/navigation";
@@ -12,14 +13,12 @@ import { transformerCopyButton } from "@rehype-pretty/transformers";
 import OnThisPage from "@/components/ui/onthispage";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher"; // Correct import for Params
 
-
-
-export default async function Page({ params }: { params: { slug: string } }) {
+export default async function BlogPostPage({ params }: { params: Params }) {
   const filepath = `content/${params.slug}.md`;
 
-  // Ensure the file exists before reading
-  if (!fs.existsSync(filepath)) {
+  if (!fs.existsSync(filepath) || params.slug === "resume") {
     notFound();
     return null;
   }
@@ -49,13 +48,12 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   return (
     <article className="max-w-6xl mx-auto mt-24 mb-10 px-6 py-12 bg-[#f0f4f8] dark:bg-[#1a202c] rounded-xl shadow-lg transition-colors duration-300">
-      {/* Header Section */}
       <header className="mb-10 border-b border-[#cccccc] dark:border-[#4a5568] pb-6">
         <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-[#333333] dark:text-[#e2e8f0] tracking-tight leading-tight">
           {data.title}
         </h1>
         <blockquote className="text-base mb-6 border-l-4 border-[#3182ce] pl-4 italic text-[#666666] dark:text-[#a0aec0] bg-[#ffffff] dark:bg-[#2d3748] py-2 rounded-r-lg">
-          &quot;{data.description}&quot;
+          "{data.description}"
         </blockquote>
         <div className="flex flex-col sm:flex-row gap-4 text-sm text-[#666666] dark:text-[#a0aec0]">
           <span className="flex items-center gap-2">
@@ -68,8 +66,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
           </span>
         </div>
       </header>
-
-      {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <main className="lg:col-span-3">
           <div
@@ -86,8 +82,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
               prose-img:rounded-lg prose-img:shadow-md prose-img:my-6"
           />
         </main>
-
-        {/* Sidebar */}
         <aside className="lg:col-span-1">
           <div className="sticky top-24">
             <OnThisPage htmlContent={htmlContent} />
