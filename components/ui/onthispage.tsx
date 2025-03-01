@@ -1,9 +1,12 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from 'react';
 
+interface OnThisPageProps {
+  htmlContent: string; // Explicitly define the type of htmlContent
+}
 
-const OnThisPage = ({ htmlContent }) => {
-  const [headings, setHeadings] = useState([]);
+const OnThisPage: React.FC<OnThisPageProps> = ({ htmlContent }) => {
+  const [headings, setHeadings] = useState<{ text: string; id: string }[]>([]);
 
   useEffect(() => {
     // Parse the HTML content and extract h2 headings
@@ -11,7 +14,7 @@ const OnThisPage = ({ htmlContent }) => {
     tempDiv.innerHTML = htmlContent;
     const h2Elements = tempDiv.querySelectorAll('h2');
     const h2Data = Array.from(h2Elements).map(h2 => ({
-      text: h2.textContent,
+      text: h2.textContent || '', // Ensure textContent is not null
       id: h2.id
     }));
     setHeadings(h2Data);
