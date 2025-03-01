@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "fs/promises";
 import matter, { GrayMatterFile } from "gray-matter";
 import { notFound } from "next/navigation";
 import rehypeDocument from "rehype-document";
@@ -13,12 +13,6 @@ import OnThisPage from "@/components/ui/onthispage";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 
-interface PageProps {
-  params: {
-    slug: string;
-  };
-}
-
 interface FrontMatterData {
   title: string;
   description: string;
@@ -26,14 +20,22 @@ interface FrontMatterData {
   date: string;
 }
 
-export default async function Page({ params }: PageProps) {
-  const filepath = `content/${params.slug}.md`;
+export async function generateStaticParams() {
+  return [];
+}
 
-  if (!fs.existsSync(filepath)) {
+export default async function Page(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
+  const slug = params.slug; // Destructure first
+  const filepath = `content/${slug}.md`;
+
+  let fileContent: string;
+  try {
+    fileContent = await fs.readFile(filepath, "utf-8");
+  } catch (error) {
     notFound();
   }
 
-  const fileContent = fs.readFileSync(filepath, "utf-8");
   const { content, data } = matter(fileContent) as GrayMatterFile<string> & {
     data: FrontMatterData;
   };
@@ -41,9 +43,6 @@ export default async function Page({ params }: PageProps) {
   const processor = unified()
     .use(remarkParse)
     .use(remarkRehype)
-    .use(rehypeDocument, { title: "👋🌍" })
-    .use(rehypeFormat)
-    .use(rehypeStringify)
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings)
     .use(rehypePrettyCode, {
@@ -54,13 +53,15 @@ export default async function Page({ params }: PageProps) {
           feedbackDuration: 3000,
         }),
       ],
-    });
+    })
+    .use(rehypeDocument, { title: "👋🌍" })
+    .use(rehypeFormat)
+    .use(rehypeStringify);
 
   const htmlContent = (await processor.process(content)).toString();
 
   return (
     <article className="max-w-6xl mx-auto mt-24 mb-10 px-6 py-12 bg-[#f0f4f8] dark:bg-[#1a202c] rounded-xl shadow-lg transition-colors duration-300">
-      {/* Header Section */}
       <header className="mb-10 border-b border-[#cccccc] dark:border-[#4a5568] pb-6">
         <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-[#333333] dark:text-[#e2e8f0] tracking-tight leading-tight">
           {data.title}
@@ -83,7 +84,6 @@ export default async function Page({ params }: PageProps) {
         </div>
       </header>
 
-      {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <main className="lg:col-span-3">
           <div
@@ -101,7 +101,6 @@ export default async function Page({ params }: PageProps) {
           />
         </main>
 
-        {/* Sidebar */}
         <aside className="lg:col-span-1">
           <div className="sticky top-24">
             <OnThisPage htmlContent={htmlContent} />
