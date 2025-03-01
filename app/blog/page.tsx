@@ -3,6 +3,7 @@ import { buttonVariants } from '@/components/ui/button';
 import Link from 'next/link';
 import fs from "fs";
 import matter from 'gray-matter';
+import Image from 'next/image';
 
 const dirContent = fs.readdirSync("content", "utf-8");
 
@@ -42,7 +43,7 @@ const Blog = () => {
           >
             {/* Image Container */}
             <div className="relative overflow-hidden">
-              <img 
+              <Image
                 src={blog.image} 
                 alt={blog.title} 
                 className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-300"
