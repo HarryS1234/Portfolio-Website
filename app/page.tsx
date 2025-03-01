@@ -26,10 +26,9 @@ const Page = () => {
     const typed = new Typed(typedRef.current, {
       strings: [
         "Web Developer",
-        "Computer Science Student",
-        "Code Enthusiast",
-        "Problem Solver",
-        "Tech Innovator",
+        "Penguin Lover",
+        "Techie", "People's Person",
+        "Cooking Enthusiast",
       ],
       typeSpeed: 80,
       backSpeed: 50,
@@ -42,12 +41,12 @@ const Page = () => {
   // GIF Slideshow Effect
   useEffect(() => {
     const interval = setInterval(() => {
-      setFade(false);
+      setFade(false); // Start fade-out
       setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % giphys.length);
-        setFade(true);
-      }, 500);
-    }, 3000);
+        setCurrentIndex((prev) => (prev + 1) % giphys.length); // Update index
+        setFade(true); // Start fade-in
+      }, 500); // Wait for fade-out to complete
+    }, 3000); // Change GIF every 3 seconds
 
     return () => clearInterval(interval);
   }, [giphys.length]);
@@ -105,12 +104,14 @@ const Page = () => {
         {/* Right Side: GIF Slideshow */}
         <div className="w-full md:w-1/2 mt-10 md:mt-0 flex justify-center animate-fade-in-up delay-200">
           <div className="relative w-full max-w-[300px] sm:max-w-[400px] md:max-w-[500px] aspect-square">
-            <img
+            <Image
               src={giphys[currentIndex]}
-              alt="Animated GIF"
-              className={`w-full h-full rounded-xl shadow-xl border border-[#cccccc] dark:border-[#4a5568] transition-opacity duration-500 object-cover ${
-                fade ? "opacity-100" : "opacity-0"
-              }`}
+              alt={`Animated GIF ${currentIndex + 1}`}
+              fill
+              priority={currentIndex === 0} // Add priority to the first GIF
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className={`rounded-xl shadow-xl border border-[#cccccc] dark:border-[#4a5568] transition-opacity duration-500 object-cover ${fade ? "opacity-100" : "opacity-0"
+                }`}
             />
           </div>
         </div>

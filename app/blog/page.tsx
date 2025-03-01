@@ -5,6 +5,8 @@ import fs from "fs";
 import matter from 'gray-matter';
 import Image from 'next/image';
 import path from 'path';
+import clsx from "clsx";
+
 
 // Read blog posts from content directory
 const contentDirectory = path.join(process.cwd(), 'content');
@@ -99,7 +101,7 @@ const Blog = () => {
                 href={`/blogpost/${blog.slug}`} 
                 className={buttonVariants({ 
                   variant: "outline",
-                  className: "bg-[#3181ce]  hover:bg-[#63b2ed] dark:bg-[#63b3ed] dark:hover:bg-[#3182ce]  text-white"
+                  className:" bg-[#3183ce] hover:bg-[#63b2ed] dark:bg-[#63b3ed] dark:hover:bg-[#3182ce] "
                 })}
               >
                 Read More
