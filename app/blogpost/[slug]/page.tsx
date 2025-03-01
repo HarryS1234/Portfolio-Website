@@ -13,18 +13,20 @@ import OnThisPage from "@/components/ui/onthispage";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 
+// Explicitly define the expected structure of PageProps
 interface PageProps {
   params: {
     slug: string;
   };
 }
 
-export default async function Page({ params }: PageProps) {
+export default async function Page({ params }: { params: { slug: string } }) {
   const filepath = `content/${params.slug}.md`;
 
+  // Ensure the file exists before reading
   if (!fs.existsSync(filepath)) {
     notFound();
-    return;
+    return null;
   }
 
   const fileContent = fs.readFileSync(filepath, "utf-8");
