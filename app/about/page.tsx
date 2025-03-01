@@ -28,7 +28,7 @@ const About = () => {
             My Journey
           </h2>
           <p className="text-[#666666] dark:text-[#a0aec0] leading-relaxed text-base md:text-lg">
-            I'm a Computer Science student with a burning passion for web development. Over the past year, I've been building websites that blend creativity with functionality, turning ideas into digital realities. From tinkering with code in my dorm room to delivering projects for real clients, I’m hooked on creating seamless online experiences that make an impact.
+            I&apos;m a Computer Science student with a burning passion for web development. Over the past year, I&apos;ve been building websites that blend creativity with functionality, turning ideas into digital realities. From tinkering with code in my dorm room to delivering projects for real clients, I&apos;m hooked on creating seamless online experiences that make an impact.
           </p>
         </section>
 
@@ -60,10 +60,10 @@ const About = () => {
         {/* Call to Action */}
         <section className="text-center space-y-6 animate-fade-in-up delay-400">
           <h2 className="text-3xl md:text-4xl font-bold text-[#3182ce] dark:text-[#63b3ed] group-hover:scale-105 transition-transform duration-300">
-            Let’s Build Together
+            Let&apos;s Build Together
           </h2>
           <p className="text-[#666666] dark:text-[#a0aec0] text-base md:text-lg">
-            Got a project in mind? I’m ready to bring your vision to life with clean code and cool designs. Let’s chat about how I can help!
+            Got a project in mind? I&apos;m ready to bring your vision to life with clean code and cool designs. Let&apos;s chat about how I can help!
           </p>
           <Link
             href="/contact"
