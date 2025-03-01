@@ -5,7 +5,6 @@ import fs from "fs";
 import matter from 'gray-matter';
 import Image from 'next/image';
 import path from 'path';
-import clsx from "clsx";
 
 
 // Read blog posts from content directory
