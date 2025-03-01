@@ -1,4 +1,3 @@
-// app/blogpost/[slug]/page.tsx
 import fs from "fs";
 import matter from "gray-matter";
 import { notFound } from "next/navigation";
@@ -13,14 +12,13 @@ import { transformerCopyButton } from "@rehype-pretty/transformers";
 import OnThisPage from "@/components/ui/onthispage";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher"; // Correct import for Params
 
-export default async function BlogPostPage({ params }: { params: Params }) {
+export default async function Page({ params }) {
   const filepath = `content/${params.slug}.md`;
 
-  if (!fs.existsSync(filepath) || params.slug === "resume") {
+  if (!fs.existsSync(filepath)) {
     notFound();
-    return null;
+    return;
   }
 
   const fileContent = fs.readFileSync(filepath, "utf-8");
@@ -29,7 +27,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
   const processor = unified()
     .use(remarkParse)
     .use(remarkRehype)
-    .use(rehypeDocument)
+    .use(rehypeDocument, { title: "👋🌍" })
     .use(rehypeFormat)
     .use(rehypeStringify)
     .use(rehypeSlug)
@@ -48,6 +46,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
 
   return (
     <article className="max-w-6xl mx-auto mt-24 mb-10 px-6 py-12 bg-[#f0f4f8] dark:bg-[#1a202c] rounded-xl shadow-lg transition-colors duration-300">
+      {/* Header Section */}
       <header className="mb-10 border-b border-[#cccccc] dark:border-[#4a5568] pb-6">
         <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-[#333333] dark:text-[#e2e8f0] tracking-tight leading-tight">
           {data.title}
@@ -66,9 +65,11 @@ export default async function BlogPostPage({ params }: { params: Params }) {
           </span>
         </div>
       </header>
+
+      {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <main className="lg:col-span-3">
-          <div
+          <div 
             dangerouslySetInnerHTML={{ __html: htmlContent }}
             className="prose dark:prose-invert prose-lg text-[#333333] dark:text-[#e2e8f0] max-w-none
               prose-headings:font-bold
@@ -82,6 +83,8 @@ export default async function BlogPostPage({ params }: { params: Params }) {
               prose-img:rounded-lg prose-img:shadow-md prose-img:my-6"
           />
         </main>
+
+        {/* Sidebar */}
         <aside className="lg:col-span-1">
           <div className="sticky top-24">
             <OnThisPage htmlContent={htmlContent} />

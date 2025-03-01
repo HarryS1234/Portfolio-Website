@@ -24,7 +24,13 @@ const Page = () => {
   // Typed.js effect
   useEffect(() => {
     const typed = new Typed(typedRef.current, {
-      strings: ["Web Developer", "Penguin Lover", "Techie", "People's Person", "Cooking Enthusiast"],
+      strings: [
+        "Web Developer",
+        "Computer Science Student",
+        "Code Enthusiast",
+        "Problem Solver",
+        "Tech Innovator",
+      ],
       typeSpeed: 80,
       backSpeed: 50,
       loop: true,
@@ -99,7 +105,7 @@ const Page = () => {
         {/* Right Side: GIF Slideshow */}
         <div className="w-full md:w-1/2 mt-10 md:mt-0 flex justify-center animate-fade-in-up delay-200">
           <div className="relative w-full max-w-[300px] sm:max-w-[400px] md:max-w-[500px] aspect-square">
-            <Image
+            <img
               src={giphys[currentIndex]}
               alt="Animated GIF"
               className={`w-full h-full rounded-xl shadow-xl border border-[#cccccc] dark:border-[#4a5568] transition-opacity duration-500 object-cover ${
