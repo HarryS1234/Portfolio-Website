@@ -4,7 +4,7 @@ description: This is JavaScript tutorial and this is for learning JavaScript
 slug: css-tutorial
 date: 11/02/2025
 author: Harry
-image: /assets/Blog4.webp
+image: /assets/Blog1.webp
 ---
 
 # CSS Tutorial: A Comprehensive Guide
