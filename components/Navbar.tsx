@@ -57,7 +57,7 @@ const Navbar = () => {
 
         {/* Mobile Dropdown Menu */}
         {isOpen && (
-          <div className="absolute top-16 left-0 w-full bg-[#7ea9ff] dark:bg-gray-700 shadow-md rounded-b-lg flex flex-col py-3 md:hidden">
+          <div className="absolute top-16 left-0 w-full bg-[#3182ce] dark:bg-gray-800 shadow-md rounded-b-lg flex flex-col py-3 md:hidden">
             {navItems.map((item) => (
               <Link key={item.path} href={item.path} onClick={toggleMenu} className="block">
                 <div className="text-white text-center font-semibold hover:bg-blue-500 dark:hover:bg-gray-600 py-3 cursor-pointer">
