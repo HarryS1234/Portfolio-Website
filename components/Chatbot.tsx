@@ -58,7 +58,7 @@ const Chatbot = () => {
         "https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta",
         {
           inputs: `Context: ${context}\n\n${input}\n\nAnswer as Hargobind:`,
-          parameters: { max_new_tokens: 70, temperature: 0.7 },
+          parameters: { max_new_tokens: 100, temperature: 0.7 },
         },
         {
           headers: {
