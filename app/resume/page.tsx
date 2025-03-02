@@ -30,6 +30,10 @@ export default async function ResumePage() {
 
   const htmlContent = (await processor.process(content)).toString();
 
+  // Convert the resume content to a downloadable data URL
+  const resumeText = `Name: ${data.name || "Your Name"}\nTitle: ${data.title || "Your Title"}\nEmail: ${data.email || "your.email@example.com"}\nGitHub: ${data.github || "https://github.com/yourusername"}\n\n${content}`;
+  const resumeDataUrl = `data:text/plain;charset=utf-8,${encodeURIComponent(resumeText)}`;
+
   return (
     <div className="min-h-screen bg-[#f0f4f8] dark:bg-[#1a202c] flex flex-col transition-colors duration-300">
       <main className="flex-grow mt-16 container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
@@ -81,9 +85,14 @@ export default async function ResumePage() {
           />
         </section>
         <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4 text-center">
-         
-          
-
+          {/* Download Button */}
+          <a
+            href={resumeDataUrl}
+            download={`${data.name ? data.name.replace(" ", "_") : "Resume"}_Resume.txt`}
+            className="px-6 py-3 bg-[#3182ce] dark:bg-[#63b3ed] text-white rounded-full hover:bg-[#63b3ed] dark:hover:bg-[#3182ce] transition-colors duration-300 shadow-lg hover:shadow-xl hover:scale-105 font-semibold"
+          >
+            Download Resume (TXT)
+          </a>
         </div>
       </main>
     </div>
