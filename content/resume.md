@@ -42,9 +42,8 @@ Computer Science student at Humber College. I build modern websites using Next.j
 ## Education
 
 ### Humber College - Toronto, ON
-**Advanced Diploma in Computer Science** (Graduating May 2025)
+**Advanced Diploma in Computer Science** 
 - Current GPA: 3.8/4.0
-- Now in second-last semester (Fall 2024)
 - Key courses: Web Development, Data Structures, Object-Oriented Programming, Database Systems
 
 ## Achievements
