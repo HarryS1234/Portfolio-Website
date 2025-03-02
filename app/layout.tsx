@@ -7,13 +7,15 @@ import { ThemeProvider } from "@/components/theme-provider";
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Your Portfolio',
+  title: 'My Portfolio',
   description: 'Web Developer & AI Enthusiast Portfolio',
+  
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
+  
       <body>
         <ThemeProvider
           attribute="class"
