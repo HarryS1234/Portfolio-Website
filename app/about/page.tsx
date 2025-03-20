@@ -8,62 +8,51 @@ const About = () => {
     <div className="min-h-screen bg-[#f0f4f8] dark:bg-[#1a202c] text-[#333333] dark:text-[#e2e8f0] font-sans transition-colors duration-300">
       {/* Hero Section */}
       <section className="relative mt-16 flex items-center justify-center bg-gradient-to-b from-[#3182ce]/10 to-[#f0f4f8] dark:from-[#63b3ed]/20 dark:to-[#1a202c] overflow-hidden py-16">
-        {/* Animated Gradient Background */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#3182ce]/10 via-[#f0f4f8] to-[#3182ce]/10 dark:from-[#63b3ed]/20 dark:via-[#1a202c] dark:to-[#63b3ed]/20 animate-gradient-x"></div>
         <div className="relative z-10 text-center px-6">
-          <h1 className="text-5xl md:text-6xl font-extrabold text-[#3182ce] dark:text-[#63b3ed] group-hover:scale-105 transition-transform duration-300">
+          <h1 className="text-5xl md:text-6xl font-extrabold text-[#3182ce] dark:text-[#63b3ed] transition-transform duration-300">
             About Me
           </h1>
           <p className="mt-4 text-xl text-[#666666] dark:text-[#a0aec0] max-w-2xl mx-auto">
-            A computer science student crafting innovative web solutions
+            A developer who builds fast, reliable, and easy-to-use web applications.
           </p>
         </div>
       </section>
 
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-6 md:px-8 py-12 md:py-16 space-y-16">
-        {/* Personal Story */}
-        <section className="space-y-6 text-center animate-fade-in-up">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#3182ce] dark:text-[#63b3ed] group-hover:scale-105 transition-transform duration-300">
-            My Journey
+        {/* Background */}
+        <section className="space-y-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#3182ce] dark:text-[#63b3ed] transition-transform duration-300">
+            My Work
           </h2>
           <p className="text-[#666666] dark:text-[#a0aec0] leading-relaxed text-base md:text-lg">
-            I&apos;m a Computer Science student with a burning passion for web development. Over the past year, I&apos;ve been building websites that blend creativity with functionality, turning ideas into digital realities. From tinkering with code in my dorm room to delivering projects for real clients, I&apos;m hooked on creating seamless online experiences that make an impact.
+            I create web applications with a focus on performance, accessibility, and maintainability. 
+            My background includes frontend and backend development, working with tools like **React, Next.js, Node.js, and databases like Supabase**. 
+            I enjoy writing clean, well-structured code that makes applications easy to scale and improve.
           </p>
         </section>
 
-        {/* Skills and Values */}
-        <section className="space-y-6 text-center animate-fade-in-up delay-200">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#3182ce] dark:text-[#63b3ed] group-hover:scale-105 transition-transform duration-300">
-            What I Offer
+        {/* Skills */}
+        <section className="space-y-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#3182ce] dark:text-[#63b3ed] transition-transform duration-300">
+            Skills & Tools
           </h2>
           <ul className="list-none text-[#666666] dark:text-[#a0aec0] space-y-4 text-base md:text-lg">
-            <li className="flex items-center justify-center gap-2">
-              <span className="w-2 h-2 bg-[#3182ce] dark:bg-[#63b3ed] rounded-full"></span>
-              Cutting-edge skills in Next.js, React, and Tailwind CSS
-            </li>
-            <li className="flex items-center justify-center gap-2">
-              <span className="w-2 h-2 bg-[#3182ce] dark:bg-[#63b3ed] rounded-full"></span>
-              Backend proficiency with Python, Java, and Node.js
-            </li>
-            <li className="flex items-center justify-center gap-2">
-              <span className="w-2 h-2 bg-[#3182ce] dark:bg-[#63b3ed] rounded-full"></span>
-              Sleek, responsive designs that shine on any device
-            </li>
-            <li className="flex items-center justify-center gap-2">
-              <span className="w-2 h-2 bg-[#3182ce] dark:bg-[#63b3ed] rounded-full"></span>
-              A fresh perspective and relentless drive to innovate
-            </li>
+            <li>React, Next.js, and Tailwind CSS for responsive interfaces</li>
+            <li>Node.js and Express for backend development</li>
+            <li>Database management with Supabase and PostgreSQL</li>
+            <li>Authentication and security with OAuth and Clerk</li>
+            <li>Email and notification handling with Nodemailer</li>
           </ul>
         </section>
 
         {/* Call to Action */}
-        <section className="text-center space-y-6 animate-fade-in-up delay-400">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#3182ce] dark:text-[#63b3ed] group-hover:scale-105 transition-transform duration-300">
-            Let&apos;s Build Together
+        <section className="text-center space-y-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#3182ce] dark:text-[#63b3ed] transition-transform duration-300">
+            Let's Connect
           </h2>
           <p className="text-[#666666] dark:text-[#a0aec0] text-base md:text-lg">
-            Got a project in mind? I&apos;m ready to bring your vision to life with clean code and cool designs. Let&apos;s chat about how I can help!
+            If you're looking for a developer who values clean code, efficiency, and user-friendly design, let's talk.  
           </p>
           <Link
             href="/contact"

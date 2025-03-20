@@ -43,8 +43,8 @@ const Blog = () => {
   const blogs = getBlogPosts();
 
   return (
-    <div className="container max-w-7xl mx-auto px-4 py-12 mt-12 md:py-16">
-      <header className="mb-12 text-center">
+    <div className="container max-w-7xl bg-[#f0f4f8]  dark:bg-[#1a202c] mx-auto px-4 py-12 mt-12 md:py-16">
+      <header className="mb-12  text-center">
         <h1 className="text-4xl md:text-5xl font-extrabold text-[#333333] dark:text-[#e2e8f0] tracking-tight">
           Blog
         </h1>

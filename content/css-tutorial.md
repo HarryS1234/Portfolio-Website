@@ -2,7 +2,7 @@
 title: CSS Tutorial
 description: This is JavaScript tutorial and this is for learning JavaScript
 slug: css-tutorial
-date: 11/02/2025
+date: 11/02/2024
 author: Harry
 image: /assets/Blog1.webp
 ---

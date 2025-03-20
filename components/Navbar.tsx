@@ -26,7 +26,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between w-full items-center h-16">
           <Link href="/">
-            <div className="text-white text-xl hover:text-2xl font-bold">My Portfolio</div>
+            <div className="text-white text-xl hover:text-2xl font-bold">Hargobind Singh</div>
           </Link>
           
           {/* Desktop Navigation */}

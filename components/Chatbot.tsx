@@ -29,7 +29,7 @@ const Chatbot = () => {
     skills: ["Next.js", "React", "Tailwind CSS", "JavaScript", "Node.js"],
     interests: ["Web development", "Cooking", "Tech trends", "Helping others"],
     location: "Somewhere awesome",
-    projects: "Check out my portfolio at https://portfolio-website-eta-six-23.vercel.app/!",
+    projects: "Check out my portfolio at https://portfolio-website-eta-six-23.vercel.app/",
   };
 
   const context = `

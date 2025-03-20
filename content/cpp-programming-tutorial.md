@@ -2,7 +2,7 @@
 title: C++ Programming Tutorial
 description: This is JavaScript tutorial and this is for learning JavaScript
 slug: cpp-programming-tutorial
-date: 09/02/2025
+date: 01/02/2025
 author: Harry
 image: /assets/Blog3.jpeg
 ---

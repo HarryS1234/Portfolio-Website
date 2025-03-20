@@ -23,6 +23,24 @@ const Projects = () => {
       developerNotes:
         "This project was built to experiment with full-stack development and file uploads. Users can upload images, fetch random dog pictures, and see their gallery update in real-time. I implemented Cloudinary for media storage, Express for the backend, and MongoDB to store user-submitted images. The gallery updates every few seconds, creating a dynamic and engaging experience.",
     },
+    {
+      title: "Route1 Driving School",
+      description:
+        "Route1 Driving School is a modern web platform that simplifies driving lesson bookings. It fetches real-time availability from Google Calendar, allowing users to book classes instantly. Both the student and the instructor receive confirmation emails with cancellation options. The owner has a private, authenticated database to manage and track all users and their booking history securely.",
+      tech: [
+        "React",
+        "Node.js",
+        "Supabase",
+        "Drizzle ORM",
+        "Google Calendar API & OAuth",
+        "Clerk",
+        "Nodemailer"
+      ],
+      link: "https://www.route1drivingschool.com",
+      developerNotes:
+        "The integration with Google Calendar ensures seamless scheduling and real-time updates. Supabase is used for database management, while Drizzle ORM simplifies interactions with the database. Clerk handles authentication and user management. Nodemailer is set up for transactional emails, ensuring prompt confirmations and notifications. Future improvements may include payment integration and enhanced analytics for tracking student progress."
+    },
+
   ];
 
   return (
